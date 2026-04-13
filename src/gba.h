@@ -49,14 +49,16 @@ typedef int32_t  s32;
 // BG tile data (char blocks): each block = 16KB
 // BG tile maps (screen blocks): each block = 2KB (32x32 tiles of 2 bytes each)
 // OBJ tile data starts at 0x06010000 in Mode 0
+// ALL VRAM/PAL/OAM pointers must be volatile — otherwise the compiler may
+// reorder or eliminate writes to memory-mapped hardware.
 
-#define VRAM_BASE    ((u16*)0x06000000)
-#define CBB(n)       ((u16*)(0x06000000 + (n)*16*1024))   // tile graphics
-#define SBB(n)       ((u16*)(0x06000000 + (n)*2*1024))    // tile maps
+#define VRAM_BASE    ((volatile u16*)0x06000000)
+#define CBB(n)       ((volatile u16*)(0x06000000 + (n)*16*1024))
+#define SBB(n)       ((volatile u16*)(0x06000000 + (n)*2*1024))
 
 // Palettes
-#define BG_PAL       ((u16*)0x05000000)   // 16 palettes × 16 colors
-#define OBJ_PAL      ((u16*)0x05000200)
+#define BG_PAL       ((volatile u16*)0x05000000)
+#define OBJ_PAL      ((volatile u16*)0x05000200)
 
 // OAM
 #define OAM          ((volatile u16*)0x07000000)

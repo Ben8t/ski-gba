@@ -20,9 +20,9 @@
 #define MAP_ENTRY(tile, pal) ((u16)((tile) | ((pal) << 12)))
 
 // Screen-block helpers
-static u16 *sky_map   = NULL;
-static u16 *mtn_map   = NULL;
-static u16 *slope_map = NULL;
+static volatile u16 *sky_map   = NULL;
+static volatile u16 *mtn_map   = NULL;
+static volatile u16 *slope_map = NULL;
 
 void slope_build_maps(void) {
     sky_map   = SBB(SKY_SBB);

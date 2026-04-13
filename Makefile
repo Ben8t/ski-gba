@@ -36,8 +36,7 @@ $(BUILDDIR)/$(TARGET).elf: $(OBJS)
 	$(LD) -T gba.ld $^ $(LIBGCC) -o $@
 
 $(BUILDDIR)/$(TARGET).gba: $(BUILDDIR)/$(TARGET).elf
-	$(OBJCOPY) -O binary -R .bss -R .data --gap-fill 0xFF --pad-to 0x08000000 $< $@
-	$(OBJCOPY) -O binary -j .text $< $@
+	$(OBJCOPY) -O binary -R .bss $< $@
 	@echo "Built: $@"
 	@ls -lh $@
 
