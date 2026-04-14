@@ -67,9 +67,10 @@ typedef int32_t  s32;
 #define RGB15(r,g,b) ((u16)((r) | ((g)<<5) | ((b)<<10)))
 
 // ── VSync ────────────────────────────────────────────────────────────────────
+// Wait for VBlank using VCOUNT. GBA VCOUNT cycles 0-227 @ ~60Hz.
+// Lines 0-159 = active. Lines 160-227 = vblank.
 INLINE void vsync(void) {
-    while (REG_VCOUNT >= 160) {}
-    while (REG_VCOUNT <  160) {}
+    while (REG_VCOUNT != 160) {}
 }
 
 // ── Fixed-point (16.16) ──────────────────────────────────────────────────────
